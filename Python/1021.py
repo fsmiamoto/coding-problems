@@ -10,6 +10,7 @@ print('NOTAS:')
 for valor in notas:
     num_notas = total_notas // valor
     total_notas = total_notas % valor
+
     print('{} nota(s) de R$ {:.2f}'.format(num_notas, valor))
 
 if total_notas != 0:

@@ -7,3 +7,5 @@ for value in notas:
     num_notas = total // value  # Divisão inteira
     total -= value * num_notas
     print('{} nota(s) de R$ {},00'.format(num_notas, value))
+    if True:
+        print('Hello')

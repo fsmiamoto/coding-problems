@@ -2,26 +2,30 @@ package main
 
 import "fmt"
 
-func fib(n int) int {
-	if n == 1 {
-		return 0
-	}
-	if n == 2 {
-		return 1
-	}
+// Prints n first number of the Fibonacci sequence until n
+func printFib(n int) {
+	lastTwo := []int64{0, 1}
+	counter := 1
+	for counter <= n {
+		fmt.Printf("%d", lastTwo[0])
 
-	return fib(n-2) + fib(n-1)
+		// Gets next fib number
+		nextFib := lastTwo[0] + lastTwo[1]
+		lastTwo[0] = lastTwo[1]
+		lastTwo[1] = nextFib
+
+		if counter != n {
+			fmt.Print(" ")
+		} else {
+			fmt.Print("\n")
+		}
+
+		counter++
+	}
 }
 
 func main() {
 	var n int
 	fmt.Scanf("%d", &n)
-	for i := 1; i <= n; i++ {
-		if i == n {
-			fmt.Printf("%d\n", fib(i))
-			continue
-		}
-
-		fmt.Printf("%d ", fib(i))
-	}
+	printFib(n)
 }

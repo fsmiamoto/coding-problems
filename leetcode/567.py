@@ -1,42 +1,29 @@
 class Solution:
-    # This is pretty ugly
     def checkInclusion(self, pattern: str, _str: str) -> bool:
-      patternDict = {}
-      patternTotal = len(pattern)
-      for c in pattern:
-        if c not in patternDict:
-          patternDict[c] = 0
-        patternDict[c] += 1
+        window_start, matched = 0, 0
+        char_frequency = {}
 
-      start, end = 0, 0
-      strDict, strTotal = {}, 0
-      result = False
-      while end < len(_str):
-        char = _str[end]
-        print(strDict)
+        for char in pattern:
+            if char not in char_frequency:
+                char_frequency[char] = 0
+            char_frequency[char] += 1
 
-        if char not in patternDict:
-          # Start again
-          start = end+1
-          end = start
-          strDict = {}
-          strTotal = 0
-          continue
+        for window_end in range(len(_str)):
+            right_char = _str[window_end]
+            if right_char in char_frequency:
+                char_frequency[right_char] -= 1
+                if char_frequency[right_char] == 0:
+                    matched += 1
 
-        if char not in strDict:
-          strDict[char] = 0
-        else:
-          while strDict[char] == patternDict[char]:
-            strDict[_str[start]] -= 1
-            start += 1
-            strTotal -= 1
+            if matched == len(char_frequency):
+                return True
 
-        strDict[char] += 1
-        strTotal += 1
-        if strTotal == patternTotal:
-          result = True
-          break
+            if window_end >= len(pattern) -1:
+                left_char  = _str[window_start]
+                window_start += 1
+                if left_char in char_frequency:
+                    if char_frequency[left_char] == 0:
+                        matched -= 1
+                    char_frequency[left_char] += 1
 
-        end += 1
-
-      return result
+        return False

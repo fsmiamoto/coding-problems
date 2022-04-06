@@ -9,17 +9,16 @@ class TreeNode:
 
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        if not root:
-            return True
-        def height(root):
-            if not root:
-                return 0
-            return max(height(root.left),height(root.right)) + 1
 
         def check_balanced(root):
             if not root:
-                return True
-            return check_balanced(root.left) and check_balanced(root.right) and abs(height(root.left)-height(root.right)) <= 1
+                return (True, 0)
 
-        return check_balanced(root)
+            left = check_balanced(root.left)
+            right = check_balanced(root.right)
 
+            balanced = abs(left[1]-right[1]) <= 1
+
+            return (left[0] and right[0] and balanced, max(left[1],right[1])+1)
+
+        return check_balanced(root)[0]

@@ -1,3 +1,5 @@
+from typing import List
+
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         indices = {}
@@ -6,5 +8,7 @@ class Solution:
           if want in indices:
             return [i,indices[want]]
 
-          if n not in indices:
-            indices[n] = i
+          indices[n] = i
+
+        # NOT REACHED
+        return [-1,-1]

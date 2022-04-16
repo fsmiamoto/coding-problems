@@ -2,15 +2,13 @@ from typing import List
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        l, r = 0, 1
-        maxProfit = 0
+      maxProfit = 0
+      buy = 0
+      for sell in range(1,len(prices)):
+        profit = prices[sell] - prices[buy]
+        if profit <= 0:
+          buy = sell
+          continue
+        maxProfit = max(maxProfit, profit)
 
-        while r < len(prices):
-            if prices[l] < prices[r]:
-                profit = prices[r] - prices[l]
-                maxProfit = max(maxProfit, profit)
-            else:
-                l = r
-            r += 1
-
-        return maxProfit
+      return maxProfit

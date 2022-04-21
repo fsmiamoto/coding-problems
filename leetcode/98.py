@@ -34,3 +34,19 @@ class Solution:
             return True
 
         return inorder(root)
+
+    # Using min-max
+    def _isValidBST(self, root: Optional[TreeNode]) -> bool:
+        if not root:
+            return True
+
+        def checkTree(root: Optional[TreeNode], min, max):
+            if not root:
+                return True
+
+            if root.val <= min or root.val >= max:
+                return False
+
+            return checkTree(root.left, min, root.val) and checkTree(root.right, root.val, max)
+
+        return checkTree(root, float('-inf'), float('inf'))
